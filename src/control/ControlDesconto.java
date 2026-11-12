@@ -37,13 +37,12 @@ public class ControlDesconto {
         }
 
         if (!textoCupom.isEmpty()) {
-            try {
-                CupomPromocional cupom = CupomPromocional.valueOf(textoCupom);
-                tela.setCupomAplicado(cupom);
-            } catch (IllegalArgumentException ex) {
+            CupomPromocional cupom = CupomPromocional.buscarPorCodigo(textoCupom);
+            if(cupom == null) {
                 tela.exibirMensagemAviso("Cupom inválido! Verifique o código ou deixe o campo em branco.");
                 return;
             }
+            tela.setCupomAplicado(cupom);
         } else {
             tela.setCupomAplicado(null);
         }
