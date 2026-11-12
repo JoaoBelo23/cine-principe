@@ -14,4 +14,17 @@ public enum CupomPromocional {
         return desconto;
     }
 
+    public double aplicarDesconto(double valorTotal) {
+        return valorTotal * this.desconto;
+    }
+
+    public static CupomPromocional buscarPorCodigo(String codigo) {
+        for (CupomPromocional c : values()) {
+            if(c.name().equals(codigo)) {
+                return c;
+            }
+        }
+        return null;
+    }
+
 }
