@@ -1,4 +1,5 @@
 package model;
+import repository.Salas;
 import service.Sessao;
 
 public class Bilhete {
@@ -90,6 +91,15 @@ public class Bilhete {
         return "Nome: " + getUser() + " Cpf: " + getCpf() + " Sala: " + getNomeDaSala()
          + " Sessao: " + (indiceDaSessao+1) + " Filme: " + getNomeDoFilme() + " Valor: " + getValor()
          + " Cadeira: " + getCadeira();
+    }
+
+    public double getValorComTaxaSala() {
+
+        Salas tipoDeSala = Salas.obterPorTipo(getNomeDaSala());
+
+        double multiplicadorDaSala = tipoDeSala.getMultiplicadorValor();
+
+        return getValor() * multiplicadorDaSala;
     }
 
 }
