@@ -1,0 +1,17 @@
+pra criar os testes é preciso primeiro atualizar o maven usando o windows: .\mvnw.cmd dependency:resolve | Linux: ./mvnw dependency:resolve ai depois voce vai na pasta test/ e cria um espelho do que vc quer testar, exemplo eu quero testar sessão, ai eu crio dentro de test o mesmo caminho service/SessaoTest.java, ficaria test/service/SessaoTest.java, tem que terminar com Test e ser o mesmo nome da classe que vc quer testar. ai na parte(método) que vc quer testar vc cria um novo método e coloca um @Test, igual ao exemplo abaixo que eu quero testar so testar a poltrona A1, vê se ta certo a tradução e se o lugar que escolhi foi marcado como ocupado, depois roda com linux: ./mvnw test para | windows: .\mvnw.cmd test para windows. o primeiro vc faz pra dar o red, depois ajeita e roda de novo para dar o green, ai depois refatora e da uma Linux: ./mvnw clean test | windows: .\mvnw.cmd clean test. se possível faça commits de cada parte e depois der o push de tudo pq ai fica mais limpo pra acompanhar. 
+
+exemplo de como vai ficar na classe SessaoTest.java
+
+package service;
+ 
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+
+public class SessaoTest {
+    @Test
+    void testarPoltronaA1() {
+        Sessao s = new Sessao(null, "20:00");
+        assertTrue(s.traducaoCadeira("A1"));
+        assertEquals(1, s.getCadeira()[0][0]);
+    }
+}
