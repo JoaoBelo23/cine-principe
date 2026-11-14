@@ -1,8 +1,6 @@
 package model;
-import java.util.ArrayList;
-
+import service.PrecoCriticoStrategy;
 import data.CriticasData;
-import repository.Salas;
 import service.Critica;
 
 public class Critico extends Usuario{
@@ -12,6 +10,8 @@ public class Critico extends Usuario{
     public Critico(String user, String cpf, String senha, int idade, String sexo, String email, String nome_do_cartao, String numero_do_cartao, String codigo_verificador_do_cartao, String origem){
         super(user, cpf, senha, idade, sexo, email, nome_do_cartao, numero_do_cartao, codigo_verificador_do_cartao);
         this.origem = origem;
+        
+        setEstrategiaPreco(new PrecoCriticoStrategy());
     }
 
     public void setOrigem(String origem){
@@ -54,14 +54,4 @@ public class Critico extends Usuario{
         CriticasData.inserir(filme.getId(), novaCritica, nota);
     }
 
-    public double comprarBilhetes(ArrayList<Bilhete> bilhetes){
-        if(bilhetes.size() < 3) return 0;
-
-        double valorDoFilme = bilhetes.get(0).getSessao().getFilme().getValor();
-
-        Salas tipoDeSala = Salas.obterPorTipo(bilhetes.get(0).getSala().getNomeDaSala());
-        double multiplicadorDaSala = tipoDeSala.getMultiplicadorValor();
-        
-        return (bilhetes.size() - 2) * (valorDoFilme * multiplicadorDaSala);
-    }
 }
