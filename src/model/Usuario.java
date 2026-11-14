@@ -1,6 +1,7 @@
 package model;
 import java.util.ArrayList;
-import repository.Salas;
+import service.EstrategiaPrecoBilhete;
+import service.PrecoPadraoStrategy;
 
 public class Usuario {
     private int id;
@@ -13,6 +14,7 @@ public class Usuario {
     private String nome_do_cartao;
     private String numero_do_cartao;
     private String codigo_verificador_do_cartao;
+    private EstrategiaPrecoBilhete estrategiaPreco = new PrecoPadraoStrategy();
 
     public Usuario(String user, String cpf, String senha, int idade, String sexo, String email, String nome_do_cartao, String numero_do_cartao, String codigo_verificador_do_cartao) {
         this.user = user;
@@ -106,13 +108,16 @@ public class Usuario {
         return codigo_verificador_do_cartao;
     }
 
-    public double comprarBilhetes(ArrayList<Bilhete> bilhetes){
-        double valorDoFilme = bilhetes.get(0).getValor();
+    public EstrategiaPrecoBilhete getEstrategiaPreco() {
+        return estrategiaPreco;
+    }
 
-        Salas tipoDeSala = Salas.obterPorTipo(bilhetes.get(0).getNomeDaSala());
-        double multiplicadorDaSala = tipoDeSala.getMultiplicadorValor();
-        
-        return bilhetes.size() * (valorDoFilme * multiplicadorDaSala);
+    public void setEstrategiaPreco(EstrategiaPrecoBilhete estrategiaPreco) {
+        this.estrategiaPreco = estrategiaPreco;
+    }
+
+    public double comprarBilhetes(ArrayList<Bilhete> bilhetes){
+        return estrategiaPreco.calcularPreco(bilhetes);
     }
 
     public double realizarCompra(double valorBilhetes, double valorProdutos) {
