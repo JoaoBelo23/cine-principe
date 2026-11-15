@@ -5,9 +5,9 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class SesssaoTest {
-  // metodo auxiliar para nao ter que ficar criando sessao
+  // metodo auxiliar para nao ter que ficar criando filme
   private Sessao criarSessao() {
-    Filme filme = new Filme("Teste", "1h", "Terro", 20.0f, "medo.png");
+    Filme filme = new Filme("Teste", "1h", "Terror", 20.0f, "medo.png");
     return new Sessao(filme, "20:00");
   }
 

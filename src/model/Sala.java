@@ -78,5 +78,5 @@ public class Sala {
             }
         }
         return resultado + "| \n";
-        }
-}
+    }
+  }
