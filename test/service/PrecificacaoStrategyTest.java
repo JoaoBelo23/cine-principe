@@ -12,7 +12,6 @@ import model.Usuario;
 
 public class PrecificacaoStrategyTest {
 
-    // Cria bilhetes para uma sala específica
     private ArrayList<Bilhete> criarBilhetes(String tipoSala, int quantidade) {
 
         Usuario usuario = new Usuario(
@@ -49,5 +48,17 @@ public class PrecificacaoStrategyTest {
         double resultado = estrategia.calcularPreco(bilhetes);
 
         assertEquals(60.0, resultado, 0.001);
+    }
+
+    @Test
+    public void testarPrecoEstudante() {
+
+        PrecoEstudanteStrategy estrategia = new PrecoEstudanteStrategy();
+
+        ArrayList<Bilhete> bilhetes = criarBilhetes("COMUM", 3);
+
+        double resultado = estrategia.calcularPreco(bilhetes);
+
+        assertEquals(30.0, resultado, 0.001);
     }
 }
