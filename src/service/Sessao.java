@@ -61,9 +61,18 @@ public class Sessao {
         return escolhaCadeira(linha, coluna);
     }
 
+    private boolean validarCoordenadas(int x, int y){
+        return x >= 0 && x < cadeira.length && y >= 0 && y < cadeira[0].length;
+    }
+
 
     public boolean escolhaCadeira(int x,  int y){ //opção cadeira de acordo bilhete
+        if(!validarCoordenadas(x, y)){
+          return false;
+        }  
+
         int [][]cadeirasDisponiveis = getCadeira();
+
         if(cadeirasDisponiveis[x][y] == 0){
             cadeirasDisponiveis[x][y] = 1;
             setCadeira(cadeirasDisponiveis);

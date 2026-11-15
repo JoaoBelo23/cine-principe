@@ -28,4 +28,28 @@ class SesssaoTest{
     assertTrue(resultado);
     assertEquals(1, sessao.getCadeira()[9][14]);
   }
+  
+  @Test 
+  void rejeitarColunaAcimaDoLimite(){
+    Sessao sessao = criarSessao();
+    assertFalse(sessao.escolhaCadeira(0, 15));
+  }
+  
+  @Test
+  void rejeitarLinhaAcimaDoLimite(){
+    Sessao sessao = criarSessao();
+    assertFalse(sessao.escolhaCadeira(10, 0));
+  }
+
+  @Test
+  void rejeitarColunaNegativa(){
+    Sessao sessao = criarSessao();
+    assertFalse(sessao.escolhaCadeira(0, -1));
+  }
+
+  @Test 
+  void rejeitarLinhaNegativa(){
+    Sessao sessao = criarSessao();
+    assertFalse(sessao.escolhaCadeira(-1, 0));
+  }
 }
