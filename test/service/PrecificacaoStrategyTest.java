@@ -61,4 +61,28 @@ public class PrecificacaoStrategyTest {
 
         assertEquals(30.0, resultado, 0.001);
     }
+
+    @Test
+    public void testarPrecoCriticoComDoisBilhetes() {
+
+        PrecoCriticoStrategy estrategia = new PrecoCriticoStrategy();
+
+        ArrayList<Bilhete> bilhetes = criarBilhetes("COMUM", 2);
+
+        double resultado = estrategia.calcularPreco(bilhetes);
+
+        assertEquals(0.0, resultado, 0.001);
+    }
+
+    @Test
+    public void testarPrecoCriticoComTresBilhetes() {
+
+        PrecoCriticoStrategy estrategia = new PrecoCriticoStrategy();
+
+        ArrayList<Bilhete> bilhetes = criarBilhetes("COMUM", 3);
+
+        double resultado = estrategia.calcularPreco(bilhetes);
+
+        assertEquals(20.0, resultado, 0.001);
+}
 }
