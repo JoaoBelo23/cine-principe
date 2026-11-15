@@ -84,5 +84,35 @@ public class PrecificacaoStrategyTest {
         double resultado = estrategia.calcularPreco(bilhetes);
 
         assertEquals(20.0, resultado, 0.001);
-}
+    }
+
+    @Test
+    public void testarPrecoSala3D() {
+        PrecoPadraoStrategy estrategia = new PrecoPadraoStrategy();
+        ArrayList<Bilhete> bilhetes = criarBilhetes("3D", 3);
+
+        double resultado = estrategia.calcularPreco(bilhetes);
+
+        assertEquals(72.0, resultado, 0.001);
+    }
+
+    @Test
+    public void testarPrecoSalaIMAX() {
+        PrecoPadraoStrategy estrategia = new PrecoPadraoStrategy();
+        ArrayList<Bilhete> bilhetes = criarBilhetes("IMAX", 3);
+
+        double resultado = estrategia.calcularPreco(bilhetes);
+
+        assertEquals(78.0, resultado, 0.001);
+    }
+
+    @Test
+    public void testarPrecoSalaIMAX3D() {
+        PrecoPadraoStrategy estrategia = new PrecoPadraoStrategy();
+        ArrayList<Bilhete> bilhetes = criarBilhetes("IMAX/3D", 3);
+
+        double resultado = estrategia.calcularPreco(bilhetes);
+
+        assertEquals(84.0, resultado, 0.001);
+    }
 }
