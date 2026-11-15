@@ -120,7 +120,7 @@ public class Usuario {
         return estrategiaPreco.calcularPreco(bilhetes);
     }
 
-    public Critico comCritico() {
+    public Critico comoCritico() {
         return null;
     }
 
