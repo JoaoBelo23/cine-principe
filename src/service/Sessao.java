@@ -33,6 +33,14 @@ public class Sessao {
     public void setFilme(Filme filme) {
         this.filme = filme;
     }
+    
+    public String getNomeFilme(){
+      return filme.getNome();
+    }
+
+    public float getValorFilme(){
+      return filme.getValor();
+    }
 
     public void cadeirasDisponiveis(){ 
         String [] lugares = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J"};
