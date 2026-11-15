@@ -56,7 +56,7 @@ public class Sessao {
         int linha, coluna;
 
         linha = cadeira.charAt(0) - 'A';
-        coluna = cadeira.charAt(1) - '0';
+        coluna = Integer.parseInt(cadeira.substring(1)) - 1;
 
         return escolhaCadeira(linha, coluna);
     }
