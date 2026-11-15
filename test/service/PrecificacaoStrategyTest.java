@@ -1,11 +1,15 @@
 package service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
 import model.Bilhete;
+import model.Critico;
+import model.Estudante;
 import model.Filme;
 import model.Sala;
 import model.Usuario;
@@ -115,4 +119,46 @@ public class PrecificacaoStrategyTest {
 
         assertEquals(84.0, resultado, 0.001);
     }
+
+    @Test
+    public void testarEstrategiaAutomaticaEstudante() {
+        Estudante estudante = new Estudante(
+            "estudante",
+            "123",
+            "123",
+            20,
+            "M",
+            "estudante@email.com",
+            "Teste",
+            "123456",
+            "123"
+        );
+
+        assertInstanceOf(
+            PrecoEstudanteStrategy.class,
+            estudante.getEstrategiaPreco()
+        );
+    }
+
+    @Test
+    public void testarEstrategiaAutomaticaCritico() {
+        Critico critico = new Critico(
+            "critico",
+            "123",
+            "123",
+            30,
+            "M",
+            "critico@email.com",
+            "Teste",
+            "123456",
+            "123",
+            "Origem teste"
+        );
+
+        assertInstanceOf(
+            PrecoCriticoStrategy.class,
+            critico.getEstrategiaPreco()
+        );
+    }
+
 }
