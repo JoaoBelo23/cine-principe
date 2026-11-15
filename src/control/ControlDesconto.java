@@ -1,18 +1,24 @@
 package control;
 
-import gui.TelaDesconto;
-import data.CriticosData;
-import gui.TelaCheckout;
 import gui.Navegacao;
-import model.Usuario;
+import gui.TelaCheckout;
+import gui.TelaDesconto;
 import model.CupomPromocional;
+import model.Usuario;
+import service.ValidadorDesconto;
 
 public class ControlDesconto {
 
-    private TelaDesconto tela;
+    private final TelaDesconto tela;
+    private final ValidadorDesconto validadorDesconto;
 
     public ControlDesconto(TelaDesconto tela) {
+        this(tela, new ValidadorDesconto());
+    }
+
+    public ControlDesconto(TelaDesconto tela, ValidadorDesconto validadorDesconto) {
         this.tela = tela;
+        this.validadorDesconto = validadorDesconto;
     }
 
     public void voltar() {
@@ -21,24 +27,17 @@ public class ControlDesconto {
 
     public void avancar(Usuario usuario) {
         String perfil = (String) tela.getComboPerfil().getSelectedItem();
-        String textoCupom = tela.getTxtCupom().getText().trim().toUpperCase();
+        String textoCupom = tela.getTxtCupom().getText().trim();
 
-        if(perfil.equals("Crítico")) {
-            try {
-                if(CriticosData.pegar(usuario.getUser()) == null)
-                    throw new IllegalArgumentException("Não é crítico");
-                tela.setPerfilSelecionado(perfil);
-            } catch (IllegalArgumentException ex) {
-                tela.exibirMensagemAviso("Apenas para críticos cadastrados.");
-                return;
-            }
-        } else {
-            tela.setPerfilSelecionado(perfil);
+        if (!validadorDesconto.isPerfilValido(perfil, usuario)) {
+            tela.exibirMensagemAviso("Usuário não elegível para o perfil selecionado.");
+            return;
         }
+        tela.setPerfilSelecionado(perfil);
 
         if (!textoCupom.isEmpty()) {
-            CupomPromocional cupom = CupomPromocional.buscarPorCodigo(textoCupom);
-            if(cupom == null) {
+            CupomPromocional cupom = validadorDesconto.validarCupom(textoCupom);
+            if (cupom == null) {
                 tela.exibirMensagemAviso("Cupom inválido! Verifique o código ou deixe o campo em branco.");
                 return;
             }
