@@ -120,6 +120,10 @@ public class Usuario {
         return estrategiaPreco.calcularPreco(bilhetes);
     }
 
+    public Critico comCritico() {
+        return null;
+    }
+
     public double realizarCompra(double valorBilhetes, double valorProdutos) {
         return (valorBilhetes + valorProdutos);
     }

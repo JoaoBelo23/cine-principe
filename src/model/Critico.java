@@ -22,6 +22,10 @@ public class Critico extends Usuario{
         return this.origem;
     }
 
+    public Critico comCritico() {
+        return this;
+    }
+
     public void atribuirCritica(Filme filme, double nota, String nomeDaCritica, String textoComentario) {
         
         Critica novaCritica = new Critica();
