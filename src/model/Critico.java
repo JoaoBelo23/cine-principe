@@ -22,7 +22,7 @@ public class Critico extends Usuario{
         return this.origem;
     }
 
-    public Critico comCritico() {
+    public Critico comoCritico() {
         return this;
     }
 
