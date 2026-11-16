@@ -22,7 +22,7 @@ class SessaoTest {
   }
 
   @Test
-  void limiteCadeiraJ15() {
+  void CadeiraCorretaJ15() {
     Sessao sessao = criarSessao();
 
     boolean resultado = sessao.traducaoCadeira("J15");
