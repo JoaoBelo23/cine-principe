@@ -4,7 +4,7 @@ import model.Filme;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-class SesssaoTest {
+class SessaoTest {
   // metodo auxiliar para nao ter que ficar criando filme
   private Sessao criarSessao() {
     Filme filme = new Filme("Teste", "1h", "Terror", 20.0f, "medo.png");
@@ -65,4 +65,35 @@ class SesssaoTest {
     Sessao sessao = criarSessao();
     assertEquals(20.0f, sessao.getValorFilme(), 0.001f);
   }
+
+  @Test
+  void rejeitarEntradaNula() {
+    Sessao sessao = criarSessao();
+    assertFalse(sessao.traducaoCadeira(null));
+  }
+
+  @Test
+  void rejeitarEntradaVazia() {
+    Sessao sessao = criarSessao();
+    assertFalse(sessao.traducaoCadeira(""));
+  }
+
+  @Test
+  void rejeitarColunaZero() {
+    Sessao sessao = criarSessao();
+    assertFalse(sessao.traducaoCadeira("A0"));
+  }
+
+  @Test
+  void rejeitarStringColunaAcimaDoLimite() {
+    Sessao sessao = criarSessao();
+    assertFalse(sessao.traducaoCadeira("A16"));
+  }
+
+  @Test
+  void rejeitarStringLinhaAcimaDoLimite() {
+    Sessao sessao = criarSessao();
+    assertFalse(sessao.traducaoCadeira("K1"));
+  }
+
 }
