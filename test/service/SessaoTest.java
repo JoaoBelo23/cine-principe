@@ -96,4 +96,14 @@ class SessaoTest {
     assertFalse(sessao.traducaoCadeira("K1"));
   }
 
+  @Test
+  void limparCadeiraOcupada() {
+    Sessao sessao = criarSessao();
+
+    sessao.escolhaCadeira(0, 0);
+    sessao.limparCadeira(0, 0);
+
+    assertEquals(0, sessao.getCadeira()[0][0]);
+  }
+
 }
