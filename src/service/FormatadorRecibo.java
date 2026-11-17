@@ -25,9 +25,12 @@ public class FormatadorRecibo {
         recibo.append("------------------------------\n");
 
         if (bilhetes != null) {
-            for (int i = 0; i < bilhetes.size(); i++) {
-                Bilhete b = bilhetes.get(i);
-                recibo.append("Bilhete #").append(i + 1).append("\n");
+            int numeroBilhete = 1;
+            for (Bilhete b : bilhetes) {
+                if (b == null) {
+                    continue;
+                }
+                recibo.append("Bilhete #").append(numeroBilhete++).append("\n");
                 recibo.append("Usuário: ").append(obterNomeUsuario(b)).append("\n");
                 recibo.append("Sala: ").append(obterNomeSala(b)).append("\n");
                 recibo.append("Sessão: ").append(b.getIndiceDaSessao() + 1).append("\n");
