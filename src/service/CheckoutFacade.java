@@ -35,6 +35,11 @@ public class CheckoutFacade {
         if (bilhetes == null || bilhetes.isEmpty()) {
             throw new IllegalArgumentException("A lista de bilhetes não pode ser vazia.");
         }
+        for (Bilhete bilhete : bilhetes) {
+            if (bilhete == null) {
+                throw new IllegalArgumentException("A lista de bilhetes não pode conter elementos nulos.");
+            }
+        }
 
         Usuario usuarioBase = bilhetes.get(0).getUsuario();
         Usuario usuarioFinal = criadorUsuarioPorPerfil.apply(perfil, usuarioBase);
