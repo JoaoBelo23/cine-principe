@@ -4,7 +4,7 @@ public enum CupomPromocional {
     BRADESCO(0.7),
     ELO(0.8);
 
-    private double desconto;
+    private final double desconto;
 
     CupomPromocional(double desconto) {
         this.desconto = desconto;
