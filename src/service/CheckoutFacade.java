@@ -8,22 +8,19 @@ import model.Filme;
 import model.Usuario;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.BiFunction;
 
 public class CheckoutFacade {
 
     private final FormatadorRecibo formatadorRecibo;
-    private final BiFunction<String, Usuario, Usuario> criadorUsuarioPorPerfil;
+    private final UsuarioPerfilFactory perfilFactory;
 
     public CheckoutFacade() {
-        this(new FormatadorRecibo(), UsuarioPerfilFactory::criarUsuarioPorPerfil);
+        this(new FormatadorRecibo(), new UsuarioPerfilFactory());
     }
 
-    public CheckoutFacade(
-            FormatadorRecibo formatadorRecibo,
-            BiFunction<String, Usuario, Usuario> criadorUsuarioPorPerfil) {
+    public CheckoutFacade(FormatadorRecibo formatadorRecibo, UsuarioPerfilFactory perfilFactory) {
         this.formatadorRecibo = formatadorRecibo;
-        this.criadorUsuarioPorPerfil = criadorUsuarioPorPerfil;
+        this.perfilFactory = perfilFactory;
     }
 
     public DadosCheckout processarCheckout(String perfil, List<Bilhete> bilhetes, double valorTotalProdutos, CupomPromocional cupom) {
@@ -38,7 +35,7 @@ public class CheckoutFacade {
         }
 
         Usuario usuarioBase = bilhetes.get(0).getUsuario();
-        Usuario usuarioFinal = criadorUsuarioPorPerfil.apply(perfil, usuarioBase);
+        Usuario usuarioFinal = perfilFactory.criar(perfil, usuarioBase);    
 
         ArrayList<Bilhete> listaBilhetes = new ArrayList<>(bilhetes);
         double valorTotalBilhetes = usuarioFinal.comprarBilhetes(listaBilhetes);

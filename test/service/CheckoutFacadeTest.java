@@ -45,7 +45,7 @@ public class CheckoutFacadeTest {
                 "critico_cine".equals(username) ? usuarioCritico : null;
 
         UsuarioPerfilFactory perfilFactory = new UsuarioPerfilFactory(consultorEmMemoria);
-        facade = new CheckoutFacade(formatadorRecibo, perfilFactory::criar);
+        facade = new CheckoutFacade(formatadorRecibo, perfilFactory);
     }
 
     private Bilhete criarBilheteExemplo(Usuario comprador, String tipoSala, float valorFilme, String cadeira) {
