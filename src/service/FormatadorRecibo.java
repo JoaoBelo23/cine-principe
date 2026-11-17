@@ -15,7 +15,7 @@ public class FormatadorRecibo {
     }
 
     public String gerarRecibo(Usuario usuarioFinal, List<Bilhete> bilhetes) {
-        String cartaoMascarado = usuarioFinal != null
+        String cartaoMascarado = (usuarioFinal != null)
                 ? mascararCartao(usuarioFinal.getNumero_do_cartao())
                 : "****";
 
