@@ -26,11 +26,7 @@ public class CheckoutFacade {
         this.criadorUsuarioPorPerfil = criadorUsuarioPorPerfil;
     }
 
-    public DadosCheckout processarCheckout(
-            String perfil,
-            List<Bilhete> bilhetes,
-            double valorTotalProdutos,
-            CupomPromocional cupom) {
+    public DadosCheckout processarCheckout(String perfil, List<Bilhete> bilhetes, double valorTotalProdutos, CupomPromocional cupom) {
 
         if (bilhetes == null || bilhetes.isEmpty()) {
             throw new IllegalArgumentException("A lista de bilhetes não pode ser vazia.");
@@ -46,20 +42,13 @@ public class CheckoutFacade {
 
         ArrayList<Bilhete> listaBilhetes = new ArrayList<>(bilhetes);
         double valorTotalBilhetes = usuarioFinal.comprarBilhetes(listaBilhetes);
-        double valorFinal = (cupom != null)
-                ? usuarioFinal.realizarCompra(valorTotalBilhetes, valorTotalProdutos, cupom)
-                : usuarioFinal.realizarCompra(valorTotalBilhetes, valorTotalProdutos);
+        double valorBruto = usuarioFinal.realizarCompra(valorTotalBilhetes, valorTotalProdutos);
+        double valorFinal = (cupom != null) ? cupom.aplicarDesconto(valorBruto) : valorBruto;
 
         Critico critico = usuarioFinal.comoCritico();
         Filme filme = extrairFilmePrincipal(bilhetes.get(0));
 
-        return new DadosCheckout(
-                usuarioFinal,
-                critico,
-                filme,
-                valorTotalBilhetes,
-                valorFinal
-        );
+        return new DadosCheckout(usuarioFinal, critico, filme, valorTotalBilhetes, valorFinal);
     }
 
     public String gerarReciboCompra(DadosCheckout dadosCheckout, List<Bilhete> bilhetes) {
