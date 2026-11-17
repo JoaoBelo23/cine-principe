@@ -26,7 +26,7 @@ public enum CupomPromocional {
         }
 
         for (CupomPromocional cupom : values()) {
-            if(cupom.name().equalsIgnoreCase(codigo)) {
+            if(cupom.name().equalsIgnoreCase(codigo.trim())) {
                 return cupom;
             }
         }
