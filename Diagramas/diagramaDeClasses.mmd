@@ -1,0 +1,63 @@
+classDiagram
+    direction TB
+
+    class ControlCheckout
+    class ControlDesconto
+    class CheckoutFacade {
+        <<Facade>>
+        +processarCheckout()
+        +gerarReciboCompra()
+    }
+    class UsuarioPerfilFactory {
+        <<Factory>>
+        +criarUsuarioPorPerfil()
+    }
+    class EstrategiaPrecoBilhete {
+        <<interface>>
+        +calcularPreco()
+    }
+    class PrecoPadraoStrategy
+    class PrecoEstudanteStrategy
+    class PrecoCriticoStrategy
+    class FormatadorRecibo {
+        +gerarRecibo()
+    }
+    class ValidadorDesconto {
+        +isPerfilValido()
+        +validarCupom()
+    }
+    class DadosCheckout
+    class Usuario {
+        +comprarBilhetes()
+        +realizarCompra()
+    }
+    class Estudante
+    class Critico
+    class Bilhete {
+        +getValorComTaxaSala()
+    }
+    class Sessao
+    class Salas {
+        <<enumeration>>
+    }
+    class CupomPromocional {
+        <<enumeration>>
+    }
+
+    ControlCheckout --> CheckoutFacade
+    ControlDesconto --> ValidadorDesconto
+    CheckoutFacade ..> UsuarioPerfilFactory
+    CheckoutFacade ..> FormatadorRecibo
+    CheckoutFacade ..> DadosCheckout : retorna
+    UsuarioPerfilFactory ..> Usuario : cria
+    Usuario <|-- Estudante
+    Usuario <|-- Critico
+    Usuario --> EstrategiaPrecoBilhete : usa
+    EstrategiaPrecoBilhete <|.. PrecoPadraoStrategy
+    EstrategiaPrecoBilhete <|.. PrecoEstudanteStrategy
+    EstrategiaPrecoBilhete <|.. PrecoCriticoStrategy
+    EstrategiaPrecoBilhete ..> Bilhete : le valor
+    Bilhete --> Sessao
+    Bilhete ..> Salas
+    Usuario ..> CupomPromocional
+    ValidadorDesconto ..> CupomPromocional
