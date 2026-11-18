@@ -1,0 +1,32 @@
+sequenceDiagram
+    participant Cliente
+    participant TCa as TelaCadeira
+    participant CCa as ControlCadeira
+    participant S as Sessao
+    participant CD as ControlDesconto
+    participant VD as ValidadorDesconto
+
+    Cliente->>TCa: escolhe a poltrona
+    TCa->>CCa: selecionarAssento(linha, coluna, nome)
+    alt poltrona livre
+        CCa->>S: escolhaCadeira(linha, coluna)
+        S-->>CCa: true
+        CCa-->>TCa: adiciona o Bilhete
+    else poltrona ocupada
+        CCa->>TCa: aviso "Assento Indisponível"
+    end
+
+    Cliente->>CD: avancar(perfil e cupom)
+    CD->>VD: isPerfilValido(perfil, usuario)
+    alt perfil inválido
+        CD->>CD: aviso "Usuário não elegível"
+    else perfil válido
+        CD->>VD: validarCupom(codigo)
+        alt cupom inválido
+            VD-->>CD: null
+            CD->>CD: aviso "Cupom inválido"
+        else cupom válido
+            VD-->>CD: cupom
+            CD->>CD: segue para o checkout
+        end
+    end
