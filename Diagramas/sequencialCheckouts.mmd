@@ -1,0 +1,36 @@
+sequenceDiagram
+    participant Cliente
+    participant TC as TelaCheckout
+    participant CC as ControlCheckout
+    participant CF as CheckoutFacade
+    participant UF as UsuarioPerfilFactory
+    participant U as Usuario
+    participant EP as EstrategiaPrecoBilhete
+    participant B as Bilhete
+    participant FR as FormatadorRecibo
+
+    Cliente->>TC: abre o checkout
+    TC->>CC: new ControlCheckout(tela)
+    CC->>CF: processarCheckout(perfil, bilhetes, produtos, cupom)
+    CF->>UF: criarUsuarioPorPerfil(perfil, usuarioBase)
+    UF-->>CF: usuarioFinal
+
+    CF->>U: comprarBilhetes(bilhetes)
+    U->>EP: calcularPreco(bilhetes)
+    EP->>B: getValorComTaxaSala()
+    B-->>EP: valor
+    EP-->>U: total dos bilhetes
+    U-->>CF: total dos bilhetes
+
+    CF->>U: realizarCompra(bilhetes, produtos, cupom)
+    U-->>CF: valorFinal
+    CF-->>CC: DadosCheckout
+    CC->>TC: mostra os valores
+
+    Cliente->>TC: confirma a compra
+    TC->>CC: finalizarCompra()
+    CC->>CF: gerarReciboCompra(dados, bilhetes)
+    CF->>FR: gerarRecibo(usuario, bilhetes)
+    FR-->>CF: recibo
+    CF-->>CC: recibo
+    CC->>TC: exibirRecibo(recibo)
