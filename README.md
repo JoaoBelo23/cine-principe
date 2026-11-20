@@ -1,66 +1,61 @@
-# Cine Príncipe
-Integrantes
+# Cine-Príncipe
 
-    João Guilherme
+Sistema desktop de gerenciamento de compras de ingressos para um cinema fictício, desenvolvido em Java como projeto acadêmico das disciplinas de Programação Orientada a Objetos e Análise e Projeto de Software.
 
-    Eduardo Andrade
+O projeto simula o fluxo de compra de ingressos, desde a escolha do filme e da sessão até a seleção de assentos, aplicação de descontos e finalização do pedido.
 
-    Matheus Guedes
+## Funcionalidades
 
-Sobre o Projeto
+- Cadastro e gerenciamento de usuários.
+- Cadastro e consulta de filmes.
+- Seleção de salas, sessões e assentos disponíveis.
+- Compra de ingressos e produtos.
+- Aplicação de cupons promocionais.
+- Regras de precificação para usuários padrão, estudantes e críticos.
+- Geração de recibos de compra.
+- Persistência de dados em banco SQLite.
 
-## Sistema de Gestão e Compra de Ingressos
+## Tecnologias utilizadas
 
-O **Cine Príncipe** é uma aplicação desktop desenvolvida em **Java** para a gestão completa de um cinema, englobando desde o fluxo de compra de ingressos e conveniências pelo cliente até o controle administrativo de catálogo, funcionários e usuários. 
+- **Java:** linguagem de programação.
+- **Java Swing:** construção da interface gráfica.
+- **SQLite:** armazenamento local dos dados.
+- **Maven:** gerenciamento de dependências e construção do projeto.
+- **JUnit 5:** implementação de testes unitários.
+- **JaCoCo:** análise da cobertura dos testes.
 
-Originalmente projetado para rodar via terminal, o sistema evoluiu para uma interface gráfica utilizando **Java Swing** com a biblioteca de temas **FlatLaf**.
+## Arquitetura e organização
 
----
+O projeto possui uma estrutura inspirada no padrão arquitetural MVC (Model-View-Controller), complementada por uma organização em camadas.
 
-## Tecnologias e Ferramentas
+Principais diretórios:
 
-* **Linguagem:** Java (JDK 25)
-* **Gerenciador de Dependências:** Maven
-* **Banco de Dados:** SQLite 
-* **Interface Gráfica (GUI):** Java Swing + FlatLaf Look and Feel
+| Diretório | Responsabilidade |
+|---|---|
+| `src/gui/` | Interfaces gráficas e interação com o usuário. |
+| `src/control/` | Controladores responsáveis pela comunicação entre interface e lógica do sistema. |
+| `src/model/` | Entidades e dados relacionados ao domínio. |
+| `src/service/` | Regras de negócio e operações do sistema. |
+| `src/data/` | Acesso e persistência dos dados no SQLite. |
+| `src/repository/` | Definições auxiliares, como gerenciamento de filmes e tipos de sala. |
+| `test/` | Testes automatizados do projeto. |
 
----
+## Padrões de projeto e refatorações
 
-## Funcionalidades Principais
+Durante o desenvolvimento, foram aplicados padrões de projeto e princípios de engenharia de software para melhorar a organização e a manutenção do código.
 
-### Fluxo do Cliente 
-* **Catálogo de Filmes:** Navegação visual pelas produções em exibição e detalhes das sessões.
-* **Mapa de Assentos Interativo:** Escolha de poltronas gerenciada por matrizes em tempo real, travando assentos já ocupados para evitar duplicidade.
-* **Loja de Snacks:** Menu integrado para adição de pipocas, jujubas e bebidas com cálculo automático de quantidades e subtotal.
-* **Benefícios e Cupons:** Aplicação automática de descontos com base em cupons promocionais ou perfis cadastrados.
-* **Checkout:** Resumo financeiro e geração de comprovante de pagamento isolado e legível.
+**Padrões GoF:**
+- Strategy: separação das regras de precificação.
+- Factory: centralização da criação dos perfis de usuário.
+- Facade: simplificação da comunicação com as operações de checkout.
+- Adapter: adaptação do acesso aos dados de críticos por meio de uma interface.
 
-### Painel do Sistema (Administração)
-* **Controle de Acesso:** Telas e permissões restritas baseadas no nível do usuário logado (Cliente, Administrador ou Funcionário).
-* **Gestão de Usuários:** Cadastro de novos clientes, alteração de dados e exclusão segura.
-* **Gestão do Catálogo:** Inserção, edição e remoção de filmes, horários, sinopses e preços de ingressos direto pela interface.
+Também foram trabalhados princípios SOLID e conceitos GRASP, além de técnicas de refatoração como Extract Class, Hide Delegate, Move Method, Guard Clauses e substituição de condicionais por polimorfismo.
 
----
+## Testes e qualidade
 
-## Estrutura do Projeto (Arquitetura)
+O projeto utiliza JUnit 5 para testes unitários e JaCoCo para analisar a cobertura dos testes. Também foi desenvolvido um ciclo de TDD na classe `Sessao`, relacionado à tradução e validação da identificação dos assentos.
 
-O código adota o padrão **MVC (Model-View-Controller)** e está modularizado de forma organizada dentro do diretório `src`:
+## Contexto acadêmico
 
-* 📂 `control/`: Classes intermediárias (Controladores) que processam as regras de negócio e controlam as interações das telas.
-* 📂 `data/`: Camada de acesso e gerenciamento direto com o banco de dados SQLite, contendo as classes controladoras de fluxo de dados;
-* 📂 `gui/`: Componentes visuais e janelas gráficas do sistema desenvolvidas em Swing.
-* 📂 `model/`: Entidades de negócio e objetos de dados (`Usuario`, `Filme`, `Sessao`, `Bilhete`, etc.).
-* 📂 `repository/` / `service/`: Estruturas auxiliares para separação lógica de consultas e serviços da aplicação.
-* 📂 `exceptions/`: Tratamento de exceções e erros personalizados do sistema.
-* 📂 `imagens/`: Armazenamento local dos recursos visuais e pôsteres dos filmes.
-
----
-
-## Como Executar a Aplicação
-
-### Pré-requisitos
-* Java JDK 25 instalado na máquina.
-
-Clone o repositório no seu ambiente:
-   ```bash
-   git clone [https://github.com/seu-usuario/nome-do-repositorio.git](https://github.com/seu-usuario/nome-do-repositorio.git)
+Este repositório reúne a implementação e as refatorações realizadas no sistema Cine-Príncipe como parte das atividades acadêmicas da Universidade Católica de Pernambuco (UNICAP), no curso de Ciência da Computação.
